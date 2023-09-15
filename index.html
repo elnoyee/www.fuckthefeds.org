@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convert Anything!</title>
+    <title>B2C SaaS Tool</title>
     <style>
         /* Common styles */
         body {
@@ -29,8 +29,7 @@
         }
 
         h2 {
-            font-size: 24px;
-            margin-top: 20px;
+            font-size: 28px;
             margin-bottom: 10px;
         }
 
@@ -92,11 +91,6 @@
             background-color: #f9f9f9;
         }
 
-        .tool-section h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
         .tool-section textarea {
             width: 100%;
             height: 200px;
@@ -110,24 +104,6 @@
             font-size: 20px;
             margin-top: 20px;
         }
-
-        /* Mobile responsiveness */
-        @media screen and (max-width: 768px) {
-            nav ul {
-                text-align: center;
-                padding-top: 20px;
-            }
-
-            nav li {
-                margin-right: 0;
-                display: inline-block;
-                margin: 0 10px;
-            }
-
-            nav a {
-                padding: 5px 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -137,6 +113,7 @@
             <li><a href="#textToCSV">Text to Comma-Separated List</a></li>
             <li><a href="#diceRoller">Dice Roller</a></li>
             <li><a href="#duplicateScanner">Duplicate Text Scanner</a></li>
+            <li><a href="#properCaseConverter">Proper Case Converter</a></li>
         </ul>
     </nav>
 
@@ -181,6 +158,16 @@
             <br>
             <div class="result-box" id="resultBox"></div>
         </section>
+
+        <!-- Proper Case Text Converter section -->
+        <section id="properCaseConverter" class="tool-section">
+            <h2>Proper Case Converter</h2>
+            <textarea class="input-box" id="properCaseInput" placeholder="Enter text to convert to Proper Case"></textarea>
+            <br>
+            <button onclick="convertToProperCase()">Convert to Proper Case</button>
+            <br>
+            <div class="result-box" id="properCaseResult"></div>
+        </section>
     </div>
 
     <script>
@@ -215,7 +202,7 @@
             document.getElementById("dateResult").textContent = resultText;
         }
 
-        // Function to transform text (from Text to Comma-Separated List)
+        // Function to transform text to comma-separated list (from Text to Comma-Separated List)
         function transformText() {
             const inputText = document.getElementById('inputText').value;
             const items = inputText.split('\n').map(item => item.trim());
@@ -223,7 +210,7 @@
             document.getElementById('textResult').innerText = commaSeparatedText;
         }
 
-        // Function to copy to clipboard (from Text to Comma-Separated List)
+        // Function to copy transformed text to clipboard (from Text to Comma-Separated List)
         function copyToClipboard() {
             const resultText = document.getElementById('textResult').innerText;
             const textarea = document.createElement('textarea');
@@ -240,9 +227,14 @@
             const dice = document.getElementById('dice');
             const resultDisplay = document.getElementById('diceResult');
 
-            const randomValue = Math.floor(Math.random() * 6) + 1; // Generate random number between 1 and 6
-            dice.textContent = randomValue;
-            resultDisplay.textContent = `Result: ${randomValue}`;
+            dice.style.animation = 'none';
+
+            setTimeout(() => {
+                const randomValue = Math.floor(Math.random() * 6) + 1; // Generate random number between 1 and 6
+                dice.textContent = randomValue;
+                dice.style.animation = 'roll 2s ease-in-out forwards';
+                resultDisplay.textContent = `Result: ${randomValue}`;
+            }, 10);
         }
 
         // Function to remove duplicates (from Duplicate Text Scanner)
@@ -256,6 +248,22 @@
             // Join the unique words with commas and display in the result box
             const resultBox = document.getElementById("resultBox");
             resultBox.textContent = uniqueArray.join(', ');
+        }
+
+        // Function to convert text to Proper Case (from Proper Case Converter)
+        function convertToProperCase() {
+            const inputText = document.getElementById('properCaseInput').value;
+            const words = inputText.split(/\s+/);
+
+            const properCaseWords = words.map(word => {
+                if (word.length > 0) {
+                    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+                }
+                return word;
+            });
+
+            const properCaseText = properCaseWords.join(' ');
+            document.getElementById('properCaseResult').innerText = properCaseText;
         }
     </script>
 </body>
