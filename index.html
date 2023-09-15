@@ -86,6 +86,19 @@
             background-color: #0056b3;
         }
 
+        /* Mobile-friendly navigation */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav li {
+                margin: 0;
+                margin-bottom: 10px;
+            }
+        }
+
         /* Tool section styles */
         .tool-section {
             margin-bottom: 40px;
@@ -161,7 +174,7 @@
         <!-- Date Counter section -->
         <section id="dateCounter" class="tool-section">
             <h2>Date Counter</h2>
-            <textarea id="dateInput" placeholder="Enter dates here..." spellcheck="false"></textarea>
+            <textarea id="dateInput" placeholder="Paste your dates here..." spellcheck="false"></textarea>
             <br>
             <button onclick="countDates()">Count Dates</button>
             <br>
@@ -176,13 +189,14 @@
             <button onclick="transformText()">Transform</button>
             <br>
             <div class="result" id="textResult"></div>
-            <button onclick="copyToClipboard()">Copy</button>
+            <button id="copyButton" onclick="copyToClipboard()">Copy</button>
         </section>
 
         <!-- Dice Roller section -->
         <section id="diceRoller" class="tool-section">
             <h2>Dice Roller</h2>
             <div id="dice">?</div>
+            <br>
             <div class="result" id="diceResult">Result: </div>
             <button onclick="rollDice()">Roll Die</button>
         </section>
@@ -194,7 +208,7 @@
             <br>
             <button onclick="removeDuplicates()">Scan for Duplicates</button>
             <br>
-            <div class="result-box" id="resultBox"></div>
+            <div class="result" id="resultBox"></div>
         </section>
 
         <!-- Proper Case Converter section -->
@@ -204,12 +218,12 @@
             <br>
             <button onclick="convertToProperCase()">Convert to Proper Case</button>
             <br>
-            <div class="result-box" id="properCaseResult"></div>
+            <div class="result" id="properCaseResult"></div>
         </section>
     </div>
 
     <script>
-        // Function to count dates by quarter (from Date Count by Quarter)
+        // Function to count dates by quarter
         function countDates() {
             const dateInput = document.getElementById("dateInput").value;
             const dates = dateInput.split('\n').map(date => new Date(date.trim()));
@@ -240,7 +254,7 @@
             document.getElementById("dateResult").innerHTML = resultText;
         }
 
-        // Function to transform text to comma-separated list (from Text to Comma-Separated List)
+        // Function to transform text to comma-separated list
         function transformText() {
             const inputText = document.getElementById('inputText').value;
             const items = inputText.split('\n').map(item => item.trim());
@@ -248,7 +262,7 @@
             document.getElementById('textResult').innerText = commaSeparatedText;
         }
 
-        // Function to copy transformed text to clipboard (from Text to Comma-Separated List)
+        // Function to copy transformed text to clipboard
         function copyToClipboard() {
             const resultText = document.getElementById('textResult').innerText;
             const textarea = document.createElement('textarea');
@@ -260,7 +274,7 @@
             alert('Result copied to clipboard');
         }
 
-        // Function to roll dice (from Dice Roller)
+        // Function to roll dice
         function rollDice() {
             const dice = document.getElementById('dice');
             const resultDisplay = document.getElementById('diceResult');
@@ -275,7 +289,7 @@
             }, 10);
         }
 
-        // Function to remove duplicates (from Duplicate Text Scanner)
+        // Function to remove duplicates
         function removeDuplicates() {
             const inputText = document.getElementById("textInput").value;
             const inputArray = inputText.split(/\s+/); // Split text into an array of words
@@ -288,7 +302,7 @@
             resultBox.textContent = uniqueArray.join(', ');
         }
 
-        // Function to convert text to Proper Case (from Proper Case Converter)
+        // Function to convert text to Proper Case
         function convertToProperCase() {
             const inputText = document.getElementById('properCaseInput').value;
             const words = inputText.split(/\s+/);
