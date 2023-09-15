@@ -56,6 +56,8 @@
             background-color: #007BFF;
             text-align: center;
             z-index: 2;
+            position: sticky;
+            top: 0;
         }
 
         nav ul {
@@ -106,10 +108,44 @@
             font-size: 20px;
             margin-top: 20px;
         }
+
+        /* Magic wand icon styles */
+        .magic-wand {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #FFD700; /* Golden color */
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .magic-wand::before {
+            content: '';
+            width: 2px;
+            height: 20px;
+            background-color: #FFD700; /* Golden color */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
+
+        .magic-wand::after {
+            content: '';
+            width: 12px;
+            height: 2px;
+            background-color: #FFD700; /* Golden color */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <h1>Magic Converter</h1>
+    <h1>Magic Converter <span class="magic-wand"></span></h1>
 
     <nav>
         <ul>
@@ -161,7 +197,7 @@
             <div class="result-box" id="resultBox"></div>
         </section>
 
-        <!-- Proper Case Text Converter section -->
+        <!-- Proper Case Converter section -->
         <section id="properCaseConverter" class="tool-section">
             <h2>Proper Case Converter</h2>
             <textarea class="input-box" id="properCaseInput" placeholder="Enter text to convert to Proper Case"></textarea>
@@ -173,7 +209,7 @@
     </div>
 
     <script>
-        // Function to count dates (from Date Counter)
+        // Function to count dates by quarter (from Date Count by Quarter)
         function countDates() {
             const dateInput = document.getElementById("dateInput").value;
             const dates = dateInput.split('\n').map(date => new Date(date.trim()));
