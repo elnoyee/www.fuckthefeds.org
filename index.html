@@ -1,19 +1,246 @@
-<head><style>
-body {
-  background-image: url("tmex.jpeg");
-  background-repeat: repeat;
-  text-align: center;
-}
-h1{color: red; font-size: 70}
-h2{color: red; font-size: 70}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert World</title>
+    <style>
+        /* Common styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-</style> </head>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
 
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Navigation styles */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #007BFF;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tool section styles */
+        .tool-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .tool-section h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .tool-section textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .tool-section .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 <body>
-  <br>
-  <h1>
-<a href="https://www.aclu.org/">ACLU.ORG</a>
-  </h1>
-<br>
-   <!--> <img src=""> </img> <!-->
+    <nav>
+        <ul>
+            <li><a href="#dateCounter">Date Counter</a></li>
+            <li><a href="#textToCSV">Text to Comma-Separated List</a></li>
+            <li><a href="#diceRoller">Dice Roller</a></li>
+            <li><a href="#duplicateScanner">Duplicate Text Scanner</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>B2C SaaS Tool</h1>
+
+        <!-- Date Counter section -->
+        <section id="dateCounter" class="tool-section">
+            <h2>Date Counter</h2>
+            <textarea id="dateInput" placeholder="Enter dates here..." spellcheck="false"></textarea>
+            <br>
+            <button onclick="countDates()">Count Dates</button>
+            <br>
+            <div class="result" id="dateResult"></div>
+        </section>
+
+        <!-- Text to Comma-Separated List section -->
+        <section id="textToCSV" class="tool-section">
+            <h2>Text to Comma-Separated List</h2>
+            <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+            <br>
+            <button onclick="transformText()">Transform</button>
+            <br>
+            <div class="result" id="textResult"></div>
+            <button onclick="copyToClipboard()">Copy</button>
+        </section>
+
+        <!-- Dice Roller section -->
+        <section id="diceRoller" class="tool-section">
+            <h2>Dice Roller</h2>
+            <div id="dice">?</div>
+            <div class="result" id="diceResult">Result: </div>
+            <button onclick="rollDice()">Roll Die</button>
+        </section>
+
+        <!-- Duplicate Text Scanner section -->
+        <section id="duplicateScanner" class="tool-section">
+            <h2>Duplicate Text Scanner</h2>
+            <textarea class="input-box" id="textInput" placeholder="Paste your text here"></textarea>
+            <br>
+            <button onclick="removeDuplicates()">Scan for Duplicates</button>
+            <br>
+            <div class="result-box" id="resultBox"></div>
+        </section>
+    </div>
+
+    <script>
+        // Function to count dates (from Date Counter)
+        function countDates() {
+            const dateInput = document.getElementById("dateInput").value;
+            const dates = dateInput.split('\n').map(date => new Date(date.trim()));
+
+            if (dates.some(isNaN)) {
+                document.getElementById("dateResult").textContent = "Invalid date format. Please use 'YYYY-MM-DD' format.";
+                return;
+            }
+
+            const dateCounts = {
+                "Q1": 0,
+                "Q2": 0,
+                "Q3": 0,
+                "Q4": 0
+            };
+
+            dates.forEach(date => {
+                const quarter = Math.floor((date.getMonth() + 3) / 3); // Calculate the quarter
+                const quarterLabel = `Q${quarter}`;
+                dateCounts[quarterLabel]++;
+            });
+
+            let resultText = "";
+            for (const [quarter, count] of Object.entries(dateCounts)) {
+                resultText += `${quarter}: ${count} dates\n`;
+            }
+
+            document.getElementById("dateResult").textContent = resultText;
+        }
+
+        // Function to transform text (from Text to Comma-Separated List)
+        function transformText() {
+            const inputText = document.getElementById('inputText').value;
+            const items = inputText.split('\n').map(item => item.trim());
+            const commaSeparatedText = items.join(', ');
+            document.getElementById('textResult').innerText = commaSeparatedText;
+        }
+
+        // Function to copy to clipboard (from Text to Comma-Separated List)
+        function copyToClipboard() {
+            const resultText = document.getElementById('textResult').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = resultText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Result copied to clipboard');
+        }
+
+        // Function to roll dice (from Dice Roller)
+        function rollDice() {
+            const dice = document.getElementById('dice');
+            const resultDisplay = document.getElementById('diceResult');
+
+            const randomValue = Math.floor(Math.random() * 6) + 1; // Generate random number between 1 and 6
+            dice.textContent = randomValue;
+            resultDisplay.textContent = `Result: ${randomValue}`;
+        }
+
+        // Function to remove duplicates (from Duplicate Text Scanner)
+        function removeDuplicates() {
+            const inputText = document.getElementById("textInput").value;
+            const inputArray = inputText.split(/\s+/); // Split text into an array of words
+
+            // Remove duplicates using Set
+            const uniqueArray = [...new Set(inputArray)];
+
+            // Join the unique words with commas and display in the result box
+            const resultBox = document.getElementById("resultBox");
+            resultBox.textContent = uniqueArray.join(', ');
+        }
+    </script>
 </body>
+</html>
