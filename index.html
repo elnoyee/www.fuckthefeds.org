@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convert World</title>
+    <title>Convert Anything!</title>
     <style>
         /* Common styles */
         body {
@@ -53,10 +53,7 @@
 
         /* Navigation styles */
         nav {
-            position: sticky;
-            top: 0;
             background-color: #007BFF;
-            padding: 10px 0;
             text-align: center;
             z-index: 2;
         }
@@ -68,15 +65,16 @@
         }
 
         nav li {
-            display: inline;
-            margin-right: 20px;
+            display: block;
+            margin-bottom: 10px;
         }
 
         nav a {
             text-decoration: none;
             color: white;
             font-size: 18px;
-            padding: 10px 20px;
+            display: block;
+            padding: 10px 0;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
@@ -112,6 +110,24 @@
             font-size: 20px;
             margin-top: 20px;
         }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                text-align: center;
+                padding-top: 20px;
+            }
+
+            nav li {
+                margin-right: 0;
+                display: inline-block;
+                margin: 0 10px;
+            }
+
+            nav a {
+                padding: 5px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -125,7 +141,7 @@
     </nav>
 
     <div class="container">
-        <h1>Convert Anything!</h1>
+        <h1>B2C SaaS Tool</h1>
 
         <!-- Date Counter section -->
         <section id="dateCounter" class="tool-section">
