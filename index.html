@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Convert!</title>
+    <title>Magic Converter!</title>
     <style>
         /* Common styles */
         body {
@@ -54,6 +54,8 @@
         nav {
             background-color: #007BFF;
             text-align: center;
+            position: sticky;
+            top: 0;
             z-index: 2;
         }
 
@@ -118,7 +120,7 @@
     </nav>
 
     <div class="container">
-        <h1>Magic Convert!</h1>
+        <h1>Magic Converter!</h1>
 
         <!-- Date Counter section -->
         <section id="dateCounter" class="tool-section">
@@ -196,10 +198,10 @@
 
             let resultText = "";
             for (const [quarter, count] of Object.entries(dateCounts)) {
-                resultText += `${quarter}: ${count} dates\n`;
+                resultText += `${quarter}: ${count} dates<br>`;
             }
 
-            document.getElementById("dateResult").textContent = resultText;
+            document.getElementById("dateResult").innerHTML = resultText;
         }
 
         // Function to transform text to comma-separated list (from Text to Comma-Separated List)
